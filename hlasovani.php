@@ -19,11 +19,11 @@ if (!($con = mysqli_connect($server, $uzivatel, $heslo, $databaze))) {
 if (isset($_GET["id_odpoved"])) 
 {
 
-    mysqli_query($con, "SET NAMES 'utf8'");
-    //UPDATE …. SET hlasu = hlasu + 1 WHERE 
-//INSERT INTO anketa_otazka(pocet_hlasu) VALUES('" . $otazka . "')
-    if (mysqli_query($con, "UPDATE anketa_odpoved SET pocet_hlasu = pocet_hlasu + 1 WHERE id_odpoved = '" . $_GET["id_odpoved"] . "'")) {
+
+    if (mysqli_query($con, "UPDATE anketa_odpoved SET pocet_hlasu = pocet_hlasu + 1 WHERE id_odpoved = '" . addslashes($_GET["id_odpoved"]) . "'")) {
         echo "Hlas byl zapocten.<br>";
+
+    // header("Location: hlasovani.php");
     }
     else {
         echo "Dotaz nelze provest " . mysqli_error($con);
